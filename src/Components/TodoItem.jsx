@@ -1,19 +1,24 @@
 import React, { useRef, useState } from "react";
 import { useTodo } from "../Contexts/index.js";
 
+//! This component works for each todo item
 const TodoItem = ({ todo }) => {
-  const todoRef = useRef(null);
+  const todoRef = useRef(null); //* Reference to use focus while edit is clicked
 
+  // State to manage whether Task is editable or not. Editable only when "Edit" button is clicked
   const [isTodoEditable, setIsTodoEditable] = useState(false);
+  // State to manage text inside the todo item
   const [todoMsg, setTodoMsg] = useState(todo.todo);
 
-  const { updateTodo, deleteTodo, toggleComplete } = useTodo();
+  const { updateTodo, deleteTodo, toggleComplete } = useTodo(); //* importing methods from Context API using custom Hook
 
+  //* Method to edit the todo item
   const editTodo = () => {
     updateTodo(todo.id, { ...todo, todo: todoMsg });
     setIsTodoEditable(false);
   };
 
+  //* Method to toggle check of completion
   const toggle = () => {
     toggleComplete(todo.id);
   };
